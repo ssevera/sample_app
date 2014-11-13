@@ -9,7 +9,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-  end
+    @microposts = @user.microposts.paginate(page: params[:page])
+  end  
   
   def new
     @user = User.new
@@ -28,7 +29,7 @@ class UsersController < ApplicationController
 
   def edit
   end
-
+  
   def update
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
